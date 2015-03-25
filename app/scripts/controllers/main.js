@@ -14,4 +14,9 @@ angular.module('datepickerApp')
       'AngularJS',
       'Karma'
     ];
+    $scope.name = 'My world';
   });
+
+angular.module('labApp').controller('MainCtrl', function($scope) {
+    $scope.name = 'world';
+});
