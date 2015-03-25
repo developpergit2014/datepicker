@@ -16,7 +16,3 @@ angular.module('datepickerApp')
     ];
     $scope.name = 'My world';
   });
-
-angular.module('labApp').controller('MainCtrl', function($scope) {
-    $scope.name = 'world';
-});
