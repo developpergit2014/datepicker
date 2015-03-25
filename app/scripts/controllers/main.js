@@ -14,5 +14,5 @@ angular.module('datepickerApp')
       'AngularJS',
       'Karma'
     ];
-    $scope.name = 'My world';
+    $scope.name = 'My two worlds';
   });
