@@ -11,9 +11,7 @@
 angular
   .module('datepickerApp', [
     'ngAnimate',
-    'ngAria',
     'ngCookies',
-    'ngMessages',
     'ngResource',
     'ngRoute',
     'ngSanitize',
