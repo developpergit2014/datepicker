@@ -14,5 +14,25 @@ angular.module('datepickerApp')
       'AngularJS',
       'Karma'
     ];
+
     $scope.name = 'My two worlds';
+
+    $scope.contacts = [
+        {
+            firstName: 'Frank',
+            surname: 'Muscles',
+            email: 'frank@muscles.com'
+        },
+        {
+            firstName: 'Eddy',
+            surname: 'Valentino',
+            email: 'eddy@valfam.co.uk'
+        }
+    ];
+
+    $scope.newContact = {};
+
+    $scope.saveContact = function() {
+        $scope.contacts.push($scope.newContact);
+    };
   });

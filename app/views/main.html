@@ -1,1 +1,30 @@
-<div class="jumbotron">Hello {{name}}</div>
+<!--<div class="jumbotron">Hello {{name}}</div>-->
+
+<form ng-submit="saveContact()">
+    <label for="inputFirstName">First name:</label>
+    <input type="text" ng-model="newContact.firstName"
+           id="inputFirstName" class="form-control">
+    <label for="inputSurname">Surname:</label>
+    <input type="text" ng-model="newContact.surname"
+           id="inputSurname" class="form-control">
+    <label for="inputEmail">E-mail address:</label>
+    <input type="text" ng-model="newContact.email"
+           id="inputEmail" class="form-control">
+    <button type="submit" class="btn btn-primary">Add</button>
+</form>
+
+<table class="table">
+    <tr>
+        <th>Name</th>
+        <th>E-mail address</th>
+        <th></th>
+    </tr>
+    <tr ng-repeat="contact in contacts">
+        <td>{{contact.firstName}} {{contact.surname}}</td>
+        <td>{{contact.email}}</td>
+        <td>
+            <button class="btn">Edit</button>
+            <button class="btn btn-danger">Delete</button>
+        </td>
+    </tr>
+</table>
