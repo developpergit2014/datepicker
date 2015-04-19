@@ -1,16 +1,30 @@
-<!--<div class="jumbotron">Hello {{name}}</div>-->
+<div class="jumbotron">Hello {{name}}</div>
 
-<form ng-submit="saveContact()">
+<!--<form ng-submit="saveContact()">-->
+    <!--<label for="inputFirstName">First name:</label>-->
+    <!--<input type="text" ng-model="newContact.firstName"-->
+           <!--id="inputFirstName" class="form-control">-->
+    <!--<label for="inputSurname">Surname:</label>-->
+    <!--<input type="text" ng-model="newContact.surname"-->
+           <!--id="inputSurname" class="form-control">-->
+    <!--<label for="inputEmail">E-mail address:</label>-->
+    <!--<input type="text" ng-model="newContact.email"-->
+           <!--id="inputEmail" class="form-control">-->
+    <!--<button type="submit" class="btn btn-primary">Add</button>-->
+<!--</form>-->
+
+<form ng-submit="saveContact()" novalidate name="newContactForm">
     <label for="inputFirstName">First name:</label>
-    <input type="text" ng-model="newContact.firstName"
+    <input type="text" ng-model="newContact.firstName" ng-required="true"
            id="inputFirstName" class="form-control">
     <label for="inputSurname">Surname:</label>
-    <input type="text" ng-model="newContact.surname"
+    <input type="text" ng-model="newContact.surname" ng-required="true"
            id="inputSurname" class="form-control">
     <label for="inputEmail">E-mail address:</label>
-    <input type="text" ng-model="newContact.email"
+    <input type="email" ng-model="newContact.email" ng-required="true"
            id="inputEmail" class="form-control">
-    <button type="submit" class="btn btn-primary">Add</button>
+    <button id="addContactButton" type="submit" class="btn btn-primary"
+            ng-disabled="newContactForm.$invalid">Add</button>
 </form>
 
 <table class="table">
@@ -20,11 +34,12 @@
         <th></th>
     </tr>
     <tr ng-repeat="contact in contacts">
+        <!--<td>{{contact | contactName}}</td>-->
         <td>{{contact.firstName}} {{contact.surname}}</td>
         <td>{{contact.email}}</td>
         <td>
             <button class="btn">Edit</button>
-            <button class="btn btn-danger">Delete</button>
+            <button class="btn btn-danger" ng-click="verwijderUitLijst($index)">Delete</button>
         </td>
     </tr>
 </table>

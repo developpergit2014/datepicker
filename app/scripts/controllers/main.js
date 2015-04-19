@@ -33,6 +33,13 @@ angular.module('datepickerApp')
     $scope.newContact = {};
 
     $scope.saveContact = function() {
-        $scope.contacts.push($scope.newContact);
+        $scope.contacts.push(angular.copy($scope.newContact));
+//        $scope.contacts.push($scope.newContact);
     };
+
+    $scope.verwijderUitLijst = function(index){
+        <!--  alert(index); -->
+        $scope.contacts.splice(index, 1);
+    };
+
   });
