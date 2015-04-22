@@ -41,12 +41,14 @@ angular.module('datepickerApp')
         if ($scope.editMode == 'false'){
 //            alert("nieuwe contact toevoegen");
             $scope.contacts.push(angular.copy($scope.newContact));
+            $scope.newContact = {};
         }
         else if ($scope.editMode == 'true'){
-//                alert($scope.newContact.firstName);
-                $scope.contacts[$scope.rowToEdit].firstName = $scope.newContact.firstName;
-                $scope.contacts[$scope.rowToEdit].surname = $scope.newContact.surname;
-                $scope.contacts[$scope.rowToEdit].email = $scope.newContact.email;
+//            alert($scope.newContact.firstName);
+            $scope.contacts[$scope.rowToEdit].firstName = $scope.newContact.firstName;
+            $scope.contacts[$scope.rowToEdit].surname = $scope.newContact.surname;
+            $scope.contacts[$scope.rowToEdit].email = $scope.newContact.email;
+            $scope.newContact = {};
         };
       $scope.editMode = 'false';
     };
