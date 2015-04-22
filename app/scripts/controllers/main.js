@@ -17,6 +17,10 @@ angular.module('datepickerApp')
 
     $scope.name = 'My two worlds';
 
+    $scope.editMode = 'false';
+    $scope.rowToEdit = '0';
+//        alert($scope.editMode);
+
     $scope.contacts = [
         {
             firstName: 'Frank',
@@ -33,9 +37,25 @@ angular.module('datepickerApp')
     $scope.newContact = {};
 
     $scope.saveContact = function() {
-        $scope.contacts.push(angular.copy($scope.newContact));
-//        $scope.contacts.push($scope.newContact);
+
+        if ($scope.editMode == 'false'){
+//            alert("nieuwe contact toevoegen");
+            $scope.contacts.push(angular.copy($scope.newContact));
+        }
+        else if ($scope.editMode == 'true'){
+//                alert($scope.newContact.firstName);
+                $scope.contacts[$scope.rowToEdit].firstName = $scope.newContact.firstName;
+                $scope.contacts[$scope.rowToEdit].surname = $scope.newContact.surname;
+                $scope.contacts[$scope.rowToEdit].email = $scope.newContact.email;
+        };
+      $scope.editMode = 'false';
     };
+
+     $scope.editEntry = function(index){
+        $scope.editMode = 'true';
+        $scope.rowToEdit = index;
+        $scope.newContact = {firstName: $scope.contacts[index].firstName, surname: $scope.contacts[index].surname, email: $scope.contacts[index].email};
+     };
 
     $scope.verwijderUitLijst = function(index){
         <!--  alert(index); -->

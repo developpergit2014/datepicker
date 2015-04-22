@@ -36,9 +36,11 @@
     <tr ng-repeat="contact in contacts">
         <!--<td>{{contact | contactName}}</td>-->
         <td>{{contact.firstName}} {{contact.surname}}</td>
+        <!--<td ng-show="$scope.editMode=true" input type="text" ng-model="contact[$index].firstName">{{contact.firstName}} {{contact.surname}}</td>-->
+        <!--<td ng-show="$scope.editMode=true">{{contact.firstName}} {{contact.surname}} </td>-->
         <td>{{contact.email}}</td>
         <td>
-            <button class="btn">Edit</button>
+            <button class="btn" ng-click="editEntry($index)">Edit</button>
             <button class="btn btn-danger" ng-click="verwijderUitLijst($index)">Delete</button>
         </td>
     </tr>
