@@ -15,7 +15,8 @@ angular
     'ngResource',
     'ngRoute',
     'ngSanitize',
-    'ngTouch'
+    'ngTouch',
+    'datepickerApp.filters'
   ])
   .config(function ($routeProvider) {
     $routeProvider
@@ -31,3 +32,5 @@ angular
         redirectTo: '/'
       });
   });
+
+angular.module('datepickerApp.filters', []);
