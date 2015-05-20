@@ -81,3 +81,11 @@ body {
     border-bottom: 0;
   }
 }
+
+input.ng-valid, input:focus.ng-valid {
+    background-color: #a9ffa0;
+}
+
+input.ng-invalid, input:focus.ng-invalid {
+    background-color: #ffbdbd;
+}
