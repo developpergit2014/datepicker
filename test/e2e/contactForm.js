@@ -1,11 +1,11 @@
 describe('E2E: Contact form', function() {
 // Tests here
     beforeEach(function() {
-        browser.get('http://localhost:9000');
+        browser.get('http://localhost:63342/datepicker/app/index.html#/');
     });
 
     it('should disable the submit button when the form is invalid', function() {
-        var addButton = element(by.css('button'));
+        var addButton = element(by.id('addContactButton'));
         expect(addButton.isEnabled()).toBe(false);
     });
 
@@ -13,7 +13,7 @@ describe('E2E: Contact form', function() {
         element(by.model('newContact.firstName')).sendKeys('Frits');
         element(by.model('newContact.surname')).sendKeys('Spits');
         element(by.model('newContact.email')).sendKeys('frits@spits.nl');
-        var addButton = element(by.css('button'));
+        var addButton = element(by.id('addContactButton'));
         expect(addButton.isEnabled()).toBe(true);
     });
 
@@ -22,7 +22,7 @@ describe('E2E: Contact form', function() {
         element(by.model('newContact.surname')).sendKeys('Spits');
         element(by.model('newContact.email')).sendKeys('frits@spits.nl');
         var contacts = by.repeater('contact in contacts');
-        var addButton = element(by.css('button'));
+        var addButton = element(by.id('addContactButton'));
         addButton.click();
         expect(element.all(contacts).count()).toBe(3);
         var email = contacts.row(2).column('email');
