@@ -165,5 +165,81 @@ StaticServlet.prototype.sendRedirect_ = function(req, res, redirectUrl) {
     util.puts('301 Moved Permanently:' + redirectUrl);
 };
 
+StaticServlet.prototype.sendFile_ = function(req, res, path) {
+    var self = this;
+    var file = fs.createReadStream(path);
+    res.writeHead(200, {
+        'Content-Type': StaticServlet.
+            MimeMap[path.split('.').pop()] || 'text/plain'
+    });
+    if (req.method === 'HEAD') {
+        res.end();
+    } else {
+        file.on('data', res.write.bind(res));
+        file.on('close', function() {
+            res.end();
+        });
+        file.on('error', function(error){
+            self.sendError_(req, res, error);
+        });
+    }
+};
 
+StaticServlet.prototype.sendDirectory_ = function(req, res, path) {
+    var self = this;
+    if (path.match(/[^\/]$/)) {
+        req.url.pathname += '/';
+        var redirectUrl = url.format(url.parse(url.format(req.url)));
+        return self.sendRedirect_(req, res, redirectUrl);
+    }
+    fs.readdir(path, function(err, files) {
+        if (err)
+            return self.sendError_(req, res, error);
+        if (!files.length)
+            return self.writeDirectoryIndex_(req, res, path, []);
+
+        var remaining = files.length;
+        files.forEach(function(fileName, index) {
+            fs.stat(path + '/' + fileName, function(err, stat) {
+                if (err)
+                    return self.sendError_(req, res, err);
+                if (stat.isDirectory()) {
+                    files[index] = fileName + '/';
+                }
+                if (!(--remaining))
+                    return self.writeDirectoryIndex_(req, res, path, files);
+            });
+        });
+    });
+};
+
+StaticServlet.prototype.writeDirectoryIndex_ = function(req, res, path) {
+    path = path.substring(1);
+    res.writeHead(200, {
+        'Content-Type': 'text/html'
+    });
+    if (req.method === 'HEAD') {
+        res.end();
+        return;
+    }
+    res.write('<!doctype html>\n');
+    res.write('<title>'+ escapeHtml(path) +'</title>\n');
+    res.write('<style>\n');
+    res.write(' ol{ list-style-type: none; font-size: 1.2em;}\n');
+    res.write('</style>\n');
+    res.write('<h1>Directory;'+ escapeHtml(path) +'</h1>');
+    res.write('<ol>');
+    files.forEach(function(fileName) {
+        if (fileName.charAt(0) !== '.') {
+            res.write('<li><a href="' +
+                escapeHtml(fileName) + "'>' +" +
+                escapeHtml(fileName) + '</a></li>');
+        }
+    });
+    res.write('</ol>');
+    res.end();
+};
+
+// Must be last,|
+main(process.argv);
 
