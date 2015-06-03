@@ -1,15 +1,16 @@
 #!/usr/bin/env node
+
 var util = require('util'),
     http = require('http'),
-    fs =require('fs'),
+    fs = require('fs'),
     url = require('url'),
     events = require('events');
 
-var DEFAULT_PORT = (process.env.KARMA_PORT === undefined ? 8000 : process.env.KARMA_PORT);
+var DEFAULT_PORT = (process.env.KARMA_PORT === undefined ? 8000:process.env.KARMA_PORT);
 
 function main(argv) {
     new HttpServer({
-        'Get': createServlet(StaticServlet),
+        'GET': createServlet(StaticServlet),
         'HEAD': createServlet(StaticServlet)
     }).start(Number(argv[2]) || DEFAULT_PORT);
 }
@@ -51,9 +52,9 @@ HttpServer.prototype.parseUrl_=function(urlString) {
 };
 
 HttpServer.prototype.handleRequest_= function(req, res) {
-    var logEntry = req.method + '' + req.url;
+    var logEntry = req.method +''+ req.url;
     if (req.headers['user-agent']) {
-        logEntry += '' + req.headers['user-agent'];
+        logEntry +=''+req.headers['user-agent'];
     }
     util.puts(logEntry);
     req.url = this.parseUrl_(req.url);
@@ -92,7 +93,7 @@ StaticServlet.prototype.handleRequest = function(req, res) {
         return String.fromCharCode(parseInt(hex, 16));
     });
     var parts = path.split('/');
-    if (parts[part.length-1].charAt(0) === '.')
+    if (parts[parts.length-1].charAt(0) === '.')
         return self.sendForbidden_(req, res, path);
     fs.stat(path, function(err, stat) {
         if (err)
@@ -110,7 +111,7 @@ StaticServlet.prototype.sendError_ = function(req, res, error) {
     res.write('<!doctype html>\n');
     res.write('<title>Internal Server Error</title>\n');
     res.write('<h1>Internal Server Error</h1>');
-    res.write('<pre>' + escapeHtml(util.inspect(error)) + '</pre>');
+    res.write('<pre>'+escapeHtml(util.inspect(error))+'</pre>');
     util.puts('500 Internal Server error');
     util.puts(util.inspect(error));
 };
@@ -124,12 +125,12 @@ StaticServlet.prototype.sendMissing_ = function(req, res, path) {
     res.write('<title>404 Not Found</title>\n');
     res.write('<h1>Not Found</h1>');
     res.write(
-        '<p>The requested URL' +
-            escapeHtml(path) +
+        '<p>The requested URL'+
+            escapeHtml(path)+
             'was not found on this server.</p>'
     );
     res.end();
-    util.puts('404 Not Found:' + path);
+    util.puts('404 Not Found:'+path);
 };
 
 StaticServlet.prototype.sendForbidden_ = function(req, res, path) {
@@ -141,11 +142,11 @@ StaticServlet.prototype.sendForbidden_ = function(req, res, path) {
     res.write('<title>403 Forbidden</title>\n');
     res.write('<h1>Forbidden</h1>');
     res.write(
-        '<p>You do not have permission to access' +
-            escapeHtml(path) + ' on this server.</p>'
+        '<p>You do not have permission to access'+
+            escapeHtml(path)+' on this server.</p>'
     );
     res.end();
-    util.puts('403 Forbidden:' + path);
+    util.puts('403 Forbidden:'+path);
 };
 
 StaticServlet.prototype.sendRedirect_ = function(req, res, redirectUrl) {
@@ -157,12 +158,12 @@ StaticServlet.prototype.sendRedirect_ = function(req, res, redirectUrl) {
     res.write('<title>301 Moved Permanently</title>\n');
     res.write('<h1>Moved Permanently</h1>');
     res.write(
-        '<p>The document has moved <a href="' +
-            redirectUrl +
+        '<p>The document has moved <a href="'+
+            redirectUrl+
             '">here</a>.</p>'
     );
     res.end();
-    util.puts('301 Moved Permanently:' + redirectUrl);
+    util.puts('301 Moved Permanently:'+redirectUrl);
 };
 
 StaticServlet.prototype.sendFile_ = function(req, res, path) {
@@ -188,7 +189,7 @@ StaticServlet.prototype.sendFile_ = function(req, res, path) {
 StaticServlet.prototype.sendDirectory_ = function(req, res, path) {
     var self = this;
     if (path.match(/[^\/]$/)) {
-        req.url.pathname += '/';
+        req.url.pathname+='/';
         var redirectUrl = url.format(url.parse(url.format(req.url)));
         return self.sendRedirect_(req, res, redirectUrl);
     }
@@ -200,11 +201,11 @@ StaticServlet.prototype.sendDirectory_ = function(req, res, path) {
 
         var remaining = files.length;
         files.forEach(function(fileName, index) {
-            fs.stat(path + '/' + fileName, function(err, stat) {
+            fs.stat(path+'/'+fileName, function(err, stat) {
                 if (err)
                     return self.sendError_(req, res, err);
                 if (stat.isDirectory()) {
-                    files[index] = fileName + '/';
+                    files[index] = fileName+'/';
                 }
                 if (!(--remaining))
                     return self.writeDirectoryIndex_(req, res, path, files);
@@ -213,7 +214,7 @@ StaticServlet.prototype.sendDirectory_ = function(req, res, path) {
     });
 };
 
-StaticServlet.prototype.writeDirectoryIndex_ = function(req, res, path) {
+StaticServlet.prototype.writeDirectoryIndex_ = function(req, res, path, files) {
     path = path.substring(1);
     res.writeHead(200, {
         'Content-Type': 'text/html'
@@ -223,17 +224,17 @@ StaticServlet.prototype.writeDirectoryIndex_ = function(req, res, path) {
         return;
     }
     res.write('<!doctype html>\n');
-    res.write('<title>'+ escapeHtml(path) +'</title>\n');
+    res.write('<title>'+escapeHtml(path)+'</title>\n');
     res.write('<style>\n');
-    res.write(' ol{ list-style-type: none; font-size: 1.2em;}\n');
+    res.write(' ol{ list-style-type:none;font-size: 1.2em;}\n');
     res.write('</style>\n');
-    res.write('<h1>Directory;'+ escapeHtml(path) +'</h1>');
+    res.write('<h1>Directory:'+escapeHtml(path)+'</h1>');
     res.write('<ol>');
     files.forEach(function(fileName) {
         if (fileName.charAt(0) !== '.') {
-            res.write('<li><a href="' +
-                escapeHtml(fileName) + "'>' +" +
-                escapeHtml(fileName) + '</a></li>');
+            res.write('<li><a href="'+
+                escapeHtml(fileName)+ '">'+
+                escapeHtml(fileName)+'</a></li>');
         }
     });
     res.write('</ol>');
