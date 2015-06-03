@@ -1,7 +1,7 @@
 describe('E2E: Contact form', function() {
 // Tests here
     beforeEach(function() {
-        browser.get('http://localhost:63342/datepicker/app/index.html#/');
+        browser.get('http://localhost:7009/app/index.html#/');
     });
 
     it('should disable the submit button when the form is invalid', function() {

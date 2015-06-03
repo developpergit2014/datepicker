@@ -4,7 +4,7 @@ exports.config = {
 
   // Spec patterns are relative to the location of this config.
   specs: [
-      'test/e2e/*.js'
+      '../test/e2e/*.js'
   ],
 
 
@@ -15,7 +15,7 @@ exports.config = {
 
   // A base URL for your application under test. Calls to protractor.get()
   // with relative paths will be prepended with this.
-  baseUrl: 'http://localhost:9000',
+  baseUrl: 'http://localhost:7009',
 
   jasmineNodeOpts: {
     onComplete: null,
