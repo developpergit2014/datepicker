@@ -44,16 +44,16 @@ HttpServer.prototype.start=function(port) {
     util.puts('Http Server running at http://localhost:' + port + '/app/index.html');
 };
 
-HttpServer.prototype.parseUrl=function(urlString) {
+HttpServer.prototype.parseUrl_=function(urlString) {
     var parsed = url.parse(urlString);
     parsed.pathname = url.resolve('/', parsed.pathname);
     return url.parse(url.format(parsed), true);
 };
 
-HttpServer.prototype.handleRequest_=function(req, res) {
-    var logEntry = req.method + req.url;
+HttpServer.prototype.handleRequest_= function(req, res) {
+    var logEntry = req.method + '' + req.url;
     if (req.headers['user-agent']) {
-        logEntry +='' + req.headers['user-agent'];
+        logEntry += '' + req.headers['user-agent'];
     }
     util.puts(logEntry);
     req.url = this.parseUrl_(req.url);
@@ -72,7 +72,7 @@ HttpServer.prototype.handleRequest_=function(req, res) {
 */
 
 function StaticServlet() {}
-StatticServlet.MimeMap = {
+StaticServlet.MimeMap = {
     'txt': 'text/plain',
     'html': 'text/html',
     'css': 'text/css',
