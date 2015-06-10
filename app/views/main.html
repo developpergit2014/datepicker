@@ -20,6 +20,9 @@
     <label for="inputSurname">Surname:</label>
     <input type="text" ng-model="newContact.surname" ng-required="true"
            id="inputSurname" class="form-control">
+    <label for="inputTelephone">Telephone number:</label>
+    <input type="text" ng-model="newContact.telephone" ng-required="true"
+           id="inputTelephone" class="form-control">
     <label for="inputEmail">E-mail address:</label>
     <input type="email" ng-model="newContact.email" ng-required="true"
            id="inputEmail" class="form-control">
@@ -30,6 +33,7 @@
 <table class="table">
     <tr>
         <th>Name</th>
+        <th>Telephone number</th>
         <th>E-mail address</th>
         <th></th>
     </tr>
@@ -38,6 +42,7 @@
         <!--<td>{{contact.firstName}} {{contact.surname}}</td>-->
         <!--<td ng-show="$scope.editMode=true" input type="text" ng-model="contact[$index].firstName">{{contact.firstName}} {{contact.surname}}</td>-->
         <!--<td ng-show="$scope.editMode=true">{{contact.firstName}} {{contact.surname}} </td>-->
+        <td>{{contact.telephone}}</td>
         <td>{{contact.email}}</td>
         <td>
             <button class="btn" ng-click="editEntry($index)">Edit</button>

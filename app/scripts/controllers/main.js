@@ -25,11 +25,13 @@ angular.module('datepickerApp')
         {
             firstName: 'Frank',
             surname: 'Muscles',
+            telephone: '06-123456',
             email: 'frank@muscles.com'
         },
         {
             firstName: 'Eddy',
             surname: 'Valentino',
+            telephone: '06-345678',
             email: 'eddy@valfam.co.uk'
         }
     ];
@@ -47,6 +49,7 @@ angular.module('datepickerApp')
 //            alert($scope.newContact.firstName);
             $scope.contacts[$scope.rowToEdit].firstName = $scope.newContact.firstName;
             $scope.contacts[$scope.rowToEdit].surname = $scope.newContact.surname;
+            $scope.contacts[$scope.rowToEdit].telephone = $scope.newContact.telephone;
             $scope.contacts[$scope.rowToEdit].email = $scope.newContact.email;
             $scope.newContact = {};
         };
@@ -56,7 +59,10 @@ angular.module('datepickerApp')
      $scope.editEntry = function(index){
         $scope.editMode = 'true';
         $scope.rowToEdit = index;
-        $scope.newContact = {firstName: $scope.contacts[index].firstName, surname: $scope.contacts[index].surname, email: $scope.contacts[index].email};
+        $scope.newContact = {   firstName: $scope.contacts[index].firstName,
+                                surname: $scope.contacts[index].surname,
+                                telephone: $scope.contacts[index].telephone,
+                                email: $scope.contacts[index].email};
      };
 
     $scope.verwijderUitLijst = function(index){
