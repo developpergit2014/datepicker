@@ -25,13 +25,13 @@ angular.module('datepickerApp')
         {
             firstName: 'Frank',
             surname: 'Muscles',
-            telephone: '06-123456',
+            telephone: '06123456',
             email: 'frank@muscles.com'
         },
         {
             firstName: 'Eddy',
             surname: 'Valentino',
-            telephone: '06-345678',
+            telephone: '06345678',
             email: 'eddy@valfam.co.uk'
         }
     ];

@@ -12,6 +12,7 @@ describe('E2E: Contact form', function() {
     it('should enable the submit button when the form is valid', function() {
         element(by.model('newContact.firstName')).sendKeys('Frits');
         element(by.model('newContact.surname')).sendKeys('Spits');
+        element(by.model('newContact.telephone')).sendKeys('0634567890');
         element(by.model('newContact.email')).sendKeys('frits@spits.nl');
         var addButton = element(by.id('addContactButton'));
         expect(addButton.isEnabled()).toBe(true);
@@ -20,6 +21,7 @@ describe('E2E: Contact form', function() {
     it('should add a contact to the list when submitting the form', function() {
         element(by.model('newContact.firstName')).sendKeys('Frits');
         element(by.model('newContact.surname')).sendKeys('Spits');
+        element(by.model('newContact.telephone')).sendKeys('0636789056');
         element(by.model('newContact.email')).sendKeys('frits@spits.nl');
         var contacts = by.repeater('contact in contacts');
         var addButton = element(by.id('addContactButton'));
