@@ -8,10 +8,11 @@ module.exports = function(config) {
 
   config.set({
     // enable / disable watching file and executing tests whenever any file changes
-    autoWatch: true,
+    autoWatch: false,
 
     // base path, that will be used to resolve files and exclude
-    basePath: '../',
+    basePath: '',
+//    basePath: '../',
 
     // testing framework to use (jasmine/mocha/qunit/...)
     frameworks: ['jasmine'],
@@ -32,8 +33,8 @@ module.exports = function(config) {
       // endbower
       'app/scripts/**/*.js',
       'test/mock/**/*.js',
-//      'test/spec/**/*.js'
-      'test/spec/**/contactName.js'
+      'test/spec/**/*.js'
+//      'test/spec/**/contactName.js'
     ],
 
     // list of files / patterns to exclude
