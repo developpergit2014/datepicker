@@ -14,7 +14,7 @@ describe('Filter: contactName', function() {
     });
 
     it('should format the name properly', function() {
-        var contact = { firstName: 'Frank', surname: 'de Boer' };
+        var contact = {firstName:'Frank', surname:'de Boer'};
         console.log(contactNameFilter(contact));
         expect(contactNameFilter(contact)).toBe('Frank de Boer');
     });
